@@ -1,8 +1,12 @@
 import QtQuick
 
 Window {
-    width: 640
+    width: 960
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("airplane controller")
+    ControllerUi{
+        id:index
+        anchors.fill: parent
+    }
 }
