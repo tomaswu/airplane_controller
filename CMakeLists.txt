@@ -6,10 +6,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 
+qt_policy(SET QTP0001 NEW)
+
 qt_standard_project_setup()
+
+qt_add_resources(qrcs resources.qrc)
 
 qt_add_executable(appairplane_controller
     srcs/main.cpp
+    ${qrcs}
 )
 
 qt_add_qml_module(appairplane_controller
@@ -19,6 +24,7 @@ qt_add_qml_module(appairplane_controller
     QML_FILES srcs/ControllerUi.qml
     QML_FILES srcs/DirectionControl.qml
     QML_FILES srcs/ArrowButton.qml
+    QML_FILES srcs/ColorImage.qml
 )
 
 set(QML_IMPORT_PATH imports)

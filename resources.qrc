@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>icos/connect.svg</file>
+        <file>icos/wifi.svg</file>
+    </qresource>
+</RCC>

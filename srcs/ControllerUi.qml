@@ -13,20 +13,10 @@ Item {
         anchors.fill: parent
         color: "lightgray"
 
-        Text {
-            id: title
-            text: qsTr("controller")
-            font.pointSize: 36
-            x:(bg.width-width)/2
-            y:bg.height*0.02
-            color:"green"
-            font.family: "JetBrains Mono"
-        }
-
         DirectionControl{
             width: 160
             height: width
-            x:bg.width*0.08
+            x:bg.width*0.025
             y:bg.height*0.35
         }
 
@@ -34,8 +24,8 @@ Item {
             id:btn_up
             width: 120
             height: 80
-            x:bg.width*0.82
-            y:bg.height*0.3
+            x:bg.width*0.8
+            y:bg.height*0.32
         }
 
         ArrowButton{
@@ -51,11 +41,22 @@ Item {
             id: img_bg
             width: bg.width*0.45
             height: width*0.75
-            x:(bg.width-width)/2+bg.width*0.05
+            x:(bg.width-width)/2
             y:bg.height*0.18
             color: "black"
-
         }
+
+        ColorImage{
+            id:ico_connect
+            width: 48
+            height: 48
+            source: "qrc:/res/icos/connect.svg"
+            color: "#80f00f0f"
+            x:img_bg.x
+            y:10
+        }
+
+
 
 
     }// end bg

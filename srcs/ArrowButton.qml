@@ -24,7 +24,7 @@ Item {
             joinStyle: ShapePath.RoundJoin
             strokeWidth: 1
             strokeColor: "transparent" //mouse_area.containsMouse ? "red" : "blue"
-            fillColor: "orange"
+            fillColor: mouse_area.pressed? "#a003030":"#80303030"
             startX: shp.width/2
             startY: 0
             PathLine{x:shp.width*0.1;y:shp.height*0.45}
