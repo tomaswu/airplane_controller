@@ -9,15 +9,19 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup()
 
 qt_add_executable(appairplane_controller
-    main.cpp
+    srcs/main.cpp
 )
 
 qt_add_qml_module(appairplane_controller
     URI airplane_controller
     VERSION 1.0
-    QML_FILES Main.qml
-    QML_FILES ControllerUi.qml
+    QML_FILES srcs/Main.qml
+    QML_FILES srcs/ControllerUi.qml
+    QML_FILES srcs/DirectionControl.qml
+    QML_FILES srcs/ArrowButton.qml
 )
+
+set(QML_IMPORT_PATH imports)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
