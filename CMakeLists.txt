@@ -25,6 +25,7 @@ qt_add_qml_module(appairplane_controller
     QML_FILES srcs/DirectionControl.qml
     QML_FILES srcs/ArrowButton.qml
     QML_FILES srcs/ColorImage.qml
+    QML_FILES srcs/Battery.qml
 )
 
 set(QML_IMPORT_PATH imports)

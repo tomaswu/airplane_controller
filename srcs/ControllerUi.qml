@@ -16,7 +16,7 @@ Item {
         DirectionControl{
             width: 160
             height: width
-            x:bg.width*0.025
+            x:bg.width*0.05
             y:bg.height*0.35
         }
 
@@ -48,12 +48,20 @@ Item {
 
         ColorImage{
             id:ico_connect
-            width: 48
-            height: 48
+            width: 36
+            height: 36
             source: "qrc:/res/icos/connect.svg"
-            color: "#80f00f0f"
+            color: "#80303030"
             x:img_bg.x
             y:10
+        }
+
+        Battery{
+            id:bty
+            width: 60
+            height: 24
+            x:ico_connect.x+ico_connect.width+20
+            y:ico_connect.y+(ico_connect.height-height)/2
         }
 
 
