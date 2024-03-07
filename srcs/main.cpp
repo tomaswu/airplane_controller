@@ -2,11 +2,11 @@
 #include <QQmlApplicationEngine>
 #include <QDebug>
 #include <QDirIterator>
+#include "socketcommu.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/qt/qml/airplane_controller/srcs/Main.qml"_qs);
     QObject::connect(
@@ -21,6 +21,10 @@ int main(int argc, char *argv[])
     // while (it.hasNext()) {
     //     qDebug() << it.next();
     // }
+    auto s = new SocketCommu(nullptr,&engine);
 
-    return app.exec();
+    auto r = app.exec();
+
+    delete s;
+    return  r;
 }

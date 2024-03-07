@@ -14,6 +14,8 @@ Item {
         color: "lightgray"
 
         DirectionControl{
+            id: dc
+            objectName: "dc"
             width: 160
             height: width
             x:bg.width*0.05
