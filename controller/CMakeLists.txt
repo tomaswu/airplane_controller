@@ -12,8 +12,11 @@ qt_standard_project_setup()
 
 qt_add_resources(qrcs resources.qrc)
 
+file(GLOB CXXSOURCES srcs/*.h srcs/*.cpp)
+message(${CXXSOURCES})
+
 qt_add_executable(appairplane_controller
-    srcs/main.cpp
+    ${CXXSOURCES}
     ${qrcs}
 )
 
@@ -26,8 +29,6 @@ qt_add_qml_module(appairplane_controller
     QML_FILES srcs/ArrowButton.qml
     QML_FILES srcs/ColorImage.qml
     QML_FILES srcs/Battery.qml
-    SOURCES srcs/socketcommu.h srcs/socketcommu.cpp
-    RESOURCES readme.md
 )
 
 set(QML_IMPORT_PATH imports)

@@ -21,11 +21,21 @@ Using type json for data exchange.like following e.g.
 ### cmd table
 |functions|cmd|sender|recipient|send data|recv data|comment
 |----|----|----|----|----|----|----|
-communication check|0|any|any|"syscheck"|"syscheck"|
-query all uav info|1|any|brain/uav|none|list[[id,name,type],]
-change position by direction delta|true/false|2|any|uav|[dx,dy,dz]
+communication check |0  |any    |any    |"syscheck"  |"syscheck"|
+query all uav info  |1|any|brain/uav|none|list[[id,name,type],]
+change position by direction delta|2|true/false|any|uav|[dx,dy,dz]
 get the GPS position|3|any|uav|...|...
-get new pop|4|any|uav|...|...
+get speed       |4  |any    |uav    |none    |[x,y,z] unit:m/s|
+get the height  |5  |any    |uav    |none    |[z] unit:m|
+
+[百度主页](https://www.baidu.com)
+
+```mermaid
+graph TD
+    A[controller] <-->B(UAV)
+    A --> people(poeple)
+
+```
 
 
 

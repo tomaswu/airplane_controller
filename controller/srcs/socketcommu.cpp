@@ -6,6 +6,7 @@ SocketCommu::SocketCommu(QObject *parent,QQmlApplicationEngine *e)
     this->engine = e;
     p_sock = new QTcpSocket;
     initconnections();
+    connect2UAV();
 }
 
 void SocketCommu::initconnections()
@@ -15,11 +16,11 @@ void SocketCommu::initconnections()
     connect(p_sock,&QTcpSocket::disconnected,this,[=](){emit this->uavdisconnected();});
     connect(p_sock,&QTcpSocket::errorOccurred,this,&SocketCommu::dealUAVerror);
 
-    if(engine){
-        auto root = engine->rootObjects();
-        auto qmlitem = root.first()->findChild<QObject*>("dc");
-        connect(qmlitem,SIGNAL(controlDelta(double,double)),this,SLOT(dcChanged(double,double)));
-    }
+    // if(engine){
+    //     auto root = engine->rootObjects();
+    //     auto qmlitem = root.first()->findChild<QObject*>("dc");
+    //     connect(qmlitem,SIGNAL(controlDelta(double,double)),this,SLOT(dcChanged(double,double)));
+    // }
 }
 
 void SocketCommu::read()

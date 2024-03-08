@@ -72,3 +72,8 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+# custom
+.DS_Store
+tmp*
+build*/
+
