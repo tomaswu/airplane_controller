@@ -4,7 +4,7 @@ project(airplane_controller VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Network)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Network Bluetooth Widgets)
 
 qt_policy(SET QTP0001 NEW)
 
@@ -45,8 +45,24 @@ set_target_properties(appairplane_controller PROPERTIES
 )
 
 target_link_libraries(appairplane_controller
-    PRIVATE Qt6::Quick Qt6::Network
+    PRIVATE Qt6::Quick Qt6::Network Qt6::Bluetooth Qt6::Widgets
 )
+
+if (APPLE)
+    # Using absolute path for shared plist files is a Ninja bug workaround
+    get_filename_component(SHARED_PLIST_DIR ${CMAKE_CURRENT_SOURCE_DIR} ABSOLUTE)
+    message(${SHARED_PLIST_DIR})
+    if (IOS)
+        set_target_properties(appairplane_controller PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST "${SHARED_PLIST_DIR}/Info.cmake.ios.plist"
+        )
+    else()
+        set_target_properties(appairplane_controller PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST "${SHARED_PLIST_DIR}/Info.cmake.macos.plist"
+        )
+    endif()
+endif()
+
 
 include(GNUInstallDirs)
 install(TARGETS appairplane_controller

@@ -1,12 +1,13 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QDebug>
 #include <QDirIterator>
 #include "socketcommu.h"
+#include "tbluetooth.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/qt/qml/airplane_controller/srcs/Main.qml"_qs);
     QObject::connect(
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     //     qDebug() << it.next();
     // }
     auto s = new SocketCommu(nullptr,&engine);
+    auto b = new TBluetooth;
 
     auto r = app.exec();
 
