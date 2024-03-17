@@ -66,6 +66,7 @@ void TBluetooth::test(){
     for(auto &i:local.connectedDevices()){
         qdb<<i;
     }
+    socket->write("hello world");
 
 }
 
