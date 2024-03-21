@@ -1,6 +1,8 @@
 #include "tbluetooth.h"
 #include "qdebug.h"
 #include <QBluetoothSocket>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #define qdb qDebug()
 
@@ -15,7 +17,6 @@ TBluetooth::TBluetooth(QObject *parent)
     connect(socket,&QBluetoothSocket::disconnected,this,&TBluetooth::test);
     connect(socket,&QBluetoothSocket::readyRead,this,&TBluetooth::read);
     connect(socket,&QBluetoothSocket::errorOccurred,this, &TBluetooth::error);
-
 
     this->startScan();
 
@@ -66,17 +67,38 @@ void TBluetooth::test(){
     for(auto &i:local.connectedDevices()){
         qdb<<i;
     }
-    socket->write("hello world");
+    auto json = QJsonObject();
+    json["cmd"] = "cmd test";
+    auto doc  = QJsonDocument(json);
+    auto str = doc.toJson(QJsonDocument::Compact);
+    qdb<<str;
+    socket->write(str);
 
 }
 
 void TBluetooth::read(){
     QByteArray all = socket->readAll();
-    qdb<<all;
+    qdb<<"get recv::"<<QString::fromUtf8(all);
+    qdb<<all[*all.end()];
+    if(all[*all.end()]=='\n'){
+        all.remove(all.length()-1,1);
+        qdb<<all;
+    }
 }
 
 void TBluetooth::error(QBluetoothSocket::SocketError error){
     qdb<<"error"<<error;
+}
+
+void TBluetooth::raise()
+{
+    auto json = QJsonObject();
+    json["cmd"] = "raise";
+    auto doc  = QJsonDocument(json);
+    auto str = doc.toJson(QJsonDocument::Compact);
+    str.append('\n');
+    qdb<<str;
+    socket->write(str);
 }
 
 

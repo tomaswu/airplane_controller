@@ -33,6 +33,8 @@ public:
     void read();
     void error(QBluetoothSocket::SocketError error);
 
+    Q_INVOKABLE void raise();
+
 signals:
     void discovered(QString s);
     void scanStarted();

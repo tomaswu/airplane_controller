@@ -28,6 +28,9 @@ Item {
             height: 80
             x:bg.width*0.8
             y:bg.height*0.32
+            onClicked: {
+                bt.raise()
+            }
         }
 
         ArrowButton{

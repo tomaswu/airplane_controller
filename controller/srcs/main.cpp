@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QDebug>
 #include <QDirIterator>
+#include <QQmlContext>
 #include "socketcommu.h"
 #include "tbluetooth.h"
 
@@ -23,7 +24,8 @@ int main(int argc, char *argv[])
     //     qDebug() << it.next();
     // }
     auto s = new SocketCommu(nullptr,&engine);
-    auto b = new TBluetooth;
+    auto bt = new TBluetooth;
+    engine.rootContext()->setContextProperty("bt",bt);
 
     auto r = app.exec();
 
