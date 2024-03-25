@@ -30,6 +30,7 @@ qt_add_qml_module(appairplane_controller
     QML_FILES srcs/ColorImage.qml
     QML_FILES srcs/Battery.qml
     SOURCES srcs/control.h srcs/control.cpp
+    SOURCES srcs/tprocotol.h srcs/tprocotol.cpp
 )
 
 set(QML_IMPORT_PATH imports)

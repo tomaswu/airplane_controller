@@ -8,6 +8,11 @@ Item {
     width: 18*50
     height: 9*50
     antialiasing: true
+
+    function controlDc(){
+        con.steering(dcl.v,dcl.h,dcr.v,dcr.h)
+    }
+
     Rectangle{
         id:bg
         anchors.fill: parent
@@ -20,10 +25,8 @@ Item {
             height: width
             x:bg.width*0.05
             y:bg.height*0.35
-            onControlDelta:function(v,h){
-
-                con.leftSteering(v,h)
-            }
+            onVChanged: controlDc()
+            onHChanged: controlDc()
         }
 
         DirectionControl{
@@ -33,10 +36,8 @@ Item {
             height: width
             x:bg.width*0.95-width
             y:bg.height*0.35
-            onControlDelta:function(v,h){
-
-                con.rightSteering(v,h)
-            }
+            onVChanged: controlDc()
+            onHChanged: controlDc()
         }
 
 
@@ -111,42 +112,52 @@ Item {
             CheckBox{
                 id:rd5
                 text:"radio 5"
+                onCheckStateChanged: con.switchRadio(5,checked)
             }
             CheckBox{
                 id:rd6
                 text:"radio 6"
+                onCheckStateChanged: con.switchRadio(6,checked)
             }
             CheckBox{
                 id:rd7
                 text:"radio 7"
+                onCheckStateChanged: con.switchRadio(7,checked)
             }
             CheckBox{
                 id:rd8
                 text:"radio 8"
+                onCheckStateChanged: con.switchRadio(8,checked)
             }
             CheckBox{
                 id:rd9
                 text:"radio 9"
+                onCheckStateChanged: con.switchRadio(9,checked)
             }
             CheckBox{
                 id:rd10
                 text:"radio 10"
+                onCheckStateChanged: con.switchRadio(10,checked)
             }
             CheckBox{
                 id:rd11
                 text:"radio 11"
+                onCheckStateChanged: con.switchRadio(11,checked)
             }
             CheckBox{
                 id:rd12
                 text:"radio 12"
+                onCheckStateChanged: con.switchRadio(12,checked)
             }
             CheckBox{
                 id:rd13
                 text:"radio 13"
+                onCheckStateChanged: con.switchRadio(13,checked)
             }
             CheckBox{
                 id:rd4
                 text:"radio 14"
+                onCheckStateChanged: con.switchRadio(14,checked)
             }
 
         }

@@ -64,10 +64,11 @@ Using type json for data exchange.like following e.g.
 |----|----|----|----|----|----|----|
 communication check |0  |any    |any    |"syscheck"  |"syscheck"|
 query all uav info  |1|any|brain/uav|none|list[[id,name,type],]
-change position by direction delta|2|true/false|any|uav|[dx,dy,dz]
+change position by direction delta|2|any|any|uav|[lv,lh,rv,rh]
 get the GPS position|3|any|uav|...|...
 get speed       |4  |any    |uav    |none    |[x,y,z] unit:m/s|
 get the height  |5  |any    |uav    |none    |[z] unit:m|
+switch radio| 6|any|uav|[channel,on/off(1/0)]|none|
 
 
 

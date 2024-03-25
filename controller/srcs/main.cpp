@@ -28,8 +28,6 @@ int main(int argc, char *argv[])
     //     qDebug() << it.next();
     // }
 
-
-
     auto r = app.exec();
 
     return  r;

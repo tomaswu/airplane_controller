@@ -1,6 +1,7 @@
 #include "control.h"
 #include <QTime>
 #include <QDebug>
+#include "tprocotol.h"
 
 #define qdb qDebug()
 
@@ -39,24 +40,23 @@ void control::connectUav(QString method)
     else if(method=="wifi"){
 
     }
+
 }
 
-void control::switchRadio(int idx)
+void control::switchRadio(uchar idx,bool open)
 {
-
+    auto s = procotol::switchRatio(idx,open? 1:0);
+    qdb<<s;
 }
 
-void control::leftSteering(double v, double h)
+void control::steering(double lv, double lh, double rv, double rh)
 {
-    if(_bt->socket->isOpen()){
-
-
-    }
+    auto s = procotol::changePosition(lv,lh,rv,rh);
+    qdb<<s;
 }
 
-void control::rightSteering(double v, double h)
-{
-    qdb<<"right"<<v<<h;
-}
+
+
+
 
 

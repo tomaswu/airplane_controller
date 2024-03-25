@@ -5,7 +5,8 @@ Item {
     id:dc
     width:  200
     height: 200
-    signal  controlDelta(dx:real,dy:real)
+    property real v: 0
+    property real h: 0
 
     Shape {
         id: ctr
@@ -77,12 +78,14 @@ Item {
             var cy = (oy-iy)*100/r*1.41421356
             cx = cx>100? 100:cx
             cy = cy>100? 100:cy
-            controlDelta(cx,cy)
+            dc.v = cx
+            dc.h = cy
         }
         onReleased: function(e){
             indictor.x=(dc.width-indictor.width)/2
             indictor.y=(dc.height-indictor.height)/2
-            controlDelta(0,0)
+            dc.v = 0
+            dc.h = 0
         }
     }
 
