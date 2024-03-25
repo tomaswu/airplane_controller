@@ -55,17 +55,17 @@ Item {
     }
 
     //test
-    Timer{
-        interval: 50
-        repeat: true
-        running: true
-        onTriggered: {
-            var dp=bty.value>80?0.2:1
-            var p=bty.value-dp
-            if (p<0)p=100
-            bty.value=p
-        }
-    }
+    // Timer{
+    //     interval: 50
+    //     repeat: true
+    //     running: true
+    //     onTriggered: {
+    //         var dp=bty.value>80?0.2:1
+    //         var p=bty.value-dp
+    //         if (p<0)p=100
+    //         bty.value=p
+    //     }
+    // }
 
 
 

@@ -14,33 +14,32 @@ Item {
         color: "lightgray"
 
         DirectionControl{
-            id: dc
-            objectName: "dc"
+            id: dcl
+            objectName: "dcl"
             width: 160
             height: width
             x:bg.width*0.05
             y:bg.height*0.35
-        }
+            onControlDelta:function(v,h){
 
-        ArrowButton{
-            id:btn_up
-            width: 120
-            height: 80
-            x:bg.width*0.8
-            y:bg.height*0.32
-            onClicked: {
-                bt.raise()
+                con.leftSteering(v,h)
             }
         }
 
-        ArrowButton{
-            id:btn_down
-            width: btn_up.width
-            height: btn_up.height
-            x:btn_up.x
-            y:btn_up.y+btn_up.height+10
-            rotation: 180
+        DirectionControl{
+            id: dcr
+            objectName: "dcr"
+            width: 160
+            height: width
+            x:bg.width*0.95-width
+            y:bg.height*0.35
+            onControlDelta:function(v,h){
+
+                con.rightSteering(v,h)
+            }
         }
+
+
 
         Rectangle {
             id: img_bg
@@ -57,8 +56,20 @@ Item {
             height: 36
             source: "qrc:/res/icos/connect.svg"
             color: "#80303030"
-            x:img_bg.x
-            y:10
+            property bool isOpen: false
+            x:100
+            y:16
+            Connections{
+                target: con
+                function onUavConnected(){
+                    ico_connect.color="green"
+                    ico_connect.isOpen=true
+                }
+                function onUavDisconnected(){
+                    ico_connect.color="#80303030"
+                    ico_connect.isOpen=false
+                }
+            }
         }
 
         Battery{
@@ -69,6 +80,107 @@ Item {
             y:ico_connect.y+(ico_connect.height-height)/2
         }
 
+        Button{
+            id:btn_connect
+            x:bty.x+bty.width+20
+            y:ico_connect.y+(ico_connect.height-height)/2
+            Text{
+                anchors.centerIn: parent
+                text: ico_connect.isOpen? "断开":"连接"
+            }
+            onClicked: {
+                con.connectUav(combox_connecttype.currentText)
+            }
+
+        }
+
+        ComboBox{
+            id:combox_connecttype
+            model:["蓝牙","wifi"]
+            x: btn_connect.x+btn_connect.width+20
+            y:ico_connect.y+(ico_connect.height-height)/2
+        }
+
+        Grid{
+            rows: 2
+            columns: 5
+            rowSpacing: 10
+            columnSpacing: 10
+            x:combox_connecttype.x+combox_connecttype.width+20
+            y:ico_connect.y+(ico_connect.height-height)/2
+            CheckBox{
+                id:rd5
+                text:"radio 5"
+            }
+            CheckBox{
+                id:rd6
+                text:"radio 6"
+            }
+            CheckBox{
+                id:rd7
+                text:"radio 7"
+            }
+            CheckBox{
+                id:rd8
+                text:"radio 8"
+            }
+            CheckBox{
+                id:rd9
+                text:"radio 9"
+            }
+            CheckBox{
+                id:rd10
+                text:"radio 10"
+            }
+            CheckBox{
+                id:rd11
+                text:"radio 11"
+            }
+            CheckBox{
+                id:rd12
+                text:"radio 12"
+            }
+            CheckBox{
+                id:rd13
+                text:"radio 13"
+            }
+            CheckBox{
+                id:rd4
+                text:"radio 14"
+            }
+
+        }
+
+        CheckBox{
+            id:debug
+            text:"debug"
+            x:bg.width-width-20
+            anchors.verticalCenter: combox_connecttype.verticalCenter
+            checked: true
+        }
+
+        ScrollView {
+            id:debug_scroll
+            anchors.fill: img_bg
+            visible: debug.checked
+            // ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+            // ScrollBar.vertical.position:1
+
+            TextArea{
+                id:debuginfo
+                anchors.fill: parent
+                text:"debug info\n"
+
+                Connections{
+                    target: con
+                    function onLog(s){
+                        debuginfo.text+=s
+                        debug_scroll.ScrollBar.vertical.position = 1-debug_scroll.ScrollBar.vertical.size
+                    }
+                }
+            }
+
+        }
 
 
 

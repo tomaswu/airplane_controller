@@ -3,13 +3,17 @@
 #include <QDebug>
 #include <QDirIterator>
 #include <QQmlContext>
-#include "socketcommu.h"
-#include "tbluetooth.h"
+
+#include "control.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    control c;
+    engine.rootContext()->setContextProperty("con",&c);
+
     const QUrl url(u"qrc:/qt/qml/airplane_controller/srcs/Main.qml"_qs);
     QObject::connect(
         &engine,
@@ -23,12 +27,10 @@ int main(int argc, char *argv[])
     // while (it.hasNext()) {
     //     qDebug() << it.next();
     // }
-    auto s = new SocketCommu(nullptr,&engine);
-    auto bt = new TBluetooth;
-    engine.rootContext()->setContextProperty("bt",bt);
+
+
 
     auto r = app.exec();
 
-    delete s;
     return  r;
 }

@@ -3,7 +3,7 @@ import Qt5Compat.GraphicalEffects
 
 Item {
     property string source: ""
-    property string color: "#323232"
+    property var color: "#323232"
     property int fillMode: Image.Stretch
 
     Image{

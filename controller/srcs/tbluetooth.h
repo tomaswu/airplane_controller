@@ -7,6 +7,7 @@
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothSocket>
 #include <QBluetoothServer>
+#include <functional>
 
 
 static const QLatin1String serviceUuid("00001101-0000-1000-8000-00805f9b34fb");
@@ -16,7 +17,7 @@ class TBluetooth: public QObject
     Q_OBJECT
 
 public:
-    TBluetooth(QObject *parent = nullptr);
+    TBluetooth(QObject *parent = nullptr,std::function<void(QString)> debug=nullptr);
     ~TBluetooth();
 
     //member
@@ -27,13 +28,12 @@ public:
     QBluetoothAddress addr;
 
     //method
-    Q_INVOKABLE void startScan();
-    Q_INVOKABLE void connectDevice();
-    void test();
+    void startScan();
+    void connectDevice();
+    // void test();
     void read();
     void error(QBluetoothSocket::SocketError error);
 
-    Q_INVOKABLE void raise();
 
 signals:
     void discovered(QString s);
@@ -42,6 +42,8 @@ signals:
 
 private:
     void findDevice(const QBluetoothDeviceInfo &info);
+
+    std::function<void(QString)> debug{nullptr};
 
 
 };
