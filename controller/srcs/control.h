@@ -26,6 +26,7 @@ signals:
 private:
     TBluetooth *_bt;
     bool _isbusy{false};
+    int _method{0};
 
 };
 

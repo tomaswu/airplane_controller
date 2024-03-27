@@ -36,9 +36,10 @@ void control::connectUav(QString method)
     debug(QString("connect by %1").arg(method));
     if(method=="蓝牙"){
         _bt->startScan();
+        _method=0;
     }
     else if(method=="wifi"){
-
+        _method=1;
     }
 
 }
@@ -51,8 +52,17 @@ void control::switchRadio(uchar idx,bool open)
 
 void control::steering(double lv, double lh, double rv, double rh)
 {
-    auto s = procotol::changePosition(lv,lh,rv,rh);
-    qdb<<s;
+    auto s = procotol::changePosition(lv,lh,rv,rh)+"\n";
+    if(_method==0){
+        if(_bt->socket->isOpen()){
+            debug(s);
+            _bt->socket->write(s.toLatin1());
+        }
+
+    }
+    else if(_method==1){
+
+    }
 }
 
 

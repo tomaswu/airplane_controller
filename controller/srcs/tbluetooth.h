@@ -8,7 +8,7 @@
 #include <QBluetoothSocket>
 #include <QBluetoothServer>
 #include <functional>
-
+#include <QBluetoothPermission>
 
 static const QLatin1String serviceUuid("00001101-0000-1000-8000-00805f9b34fb");
 
@@ -34,7 +34,6 @@ public:
     void read();
     void error(QBluetoothSocket::SocketError error);
 
-
 signals:
     void discovered(QString s);
     void scanStarted();
@@ -42,9 +41,7 @@ signals:
 
 private:
     void findDevice(const QBluetoothDeviceInfo &info);
-
     std::function<void(QString)> debug{nullptr};
-
 
 };
 

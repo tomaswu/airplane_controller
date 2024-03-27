@@ -3,12 +3,14 @@
 #include <QBluetoothSocket>
 #include <QJsonDocument>
 #include <QJsonObject>
-
+#include <QBluetoothPermission>
+#include <QApplication>
 #define qdb qDebug()
 
 TBluetooth::TBluetooth(QObject *parent,std::function<void(QString)> debug)
     : QObject{parent}
 {
+
     this->debug=debug;
     connect(&discover ,&QBluetoothDeviceDiscoveryAgent::deviceDiscovered,this,&TBluetooth::findDevice);
 //    connect(&discover ,&QBluetoothDeviceDiscoveryAgent::finished,this,&TBluetooth::connectDevice);
@@ -18,6 +20,9 @@ TBluetooth::TBluetooth(QObject *parent,std::function<void(QString)> debug)
     connect(socket,&QBluetoothSocket::errorOccurred,this, &TBluetooth::error);
 
     // this->startScan();
+    debug("start...");
+    QBluetoothPermission permission{};
+    qApp->requestPermission(permission,[](){});
 
 }
 
@@ -91,6 +96,7 @@ void TBluetooth::read(){
 void TBluetooth::error(QBluetoothSocket::SocketError error){
     qdb<<"error"<<error;
 }
+
 
 // void TBluetooth::raise()
 // {

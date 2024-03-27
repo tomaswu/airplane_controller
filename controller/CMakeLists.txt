@@ -65,6 +65,13 @@ if (APPLE)
     endif()
 endif()
 
+# if(ANDROID)
+#     set_target_properties(appairplane_controller PROPERTIES
+#         MACOSX_BUNDLE_INFO_PLIST "${SHARED_PLIST_DIR}/Info.cmake.ios.plist"
+#     )
+
+# endif()
+
 
 include(GNUInstallDirs)
 install(TARGETS appairplane_controller

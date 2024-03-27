@@ -50,44 +50,93 @@ Item {
         radius:width/2
         color:"#30ffffff"
     }
+    MultiPointTouchArea{
+        anchors.fill: dc
+        maximumTouchPoints: 1
+        touchPoints: [
+            TouchPoint{
+                id: tp
+                onPressedChanged: {
+                    if(tp.pressed){
 
-    MouseArea{
-        id:mouse_area
-        anchors.fill: parent
-        containmentMask: ctr
-        property var p0: Qt.point(0,0)
-        onPositionChanged: function(e){
-            var ox = ctr.x+ctr.width/2
-            var oy = ctr.y+ctr.height/2
-            var r = pa.radiusX-indictor.width/2
-            var v = [e.x-ox,e.y-oy]
-            var vl = norm(v)
-            if(vl<=r){
-                indictor.x = e.x-indictor.width/2
-                indictor.y = e.y-indictor.height/2
+                    }else{
+                        indictor.x=(dc.width-indictor.width)/2
+                        indictor.y=(dc.height-indictor.height)/2
+                        dc.v = 0
+                        dc.h = 0
+                    }
+                }
+                onXChanged: xyevent()
+                onYChanged: xyevent()
+                function xyevent(){
+                    if(tp.pressed){
+                        var ox = ctr.x+ctr.width/2
+                        var oy = ctr.y+ctr.height/2
+                        var r = pa.radiusX-indictor.width/2
+                        var v = [tp.x-ox,tp.y-oy]
+                        var vl = norm(v)
+                        if(vl<=r){
+                            indictor.x = tp.x-indictor.width/2
+                            indictor.y = tp.y-indictor.height/2
+                        }
+                        else{
+                            var nv = [v[0]/vl,v[1]/vl]
+                            var p = [nv[0]*r,nv[1]*r]
+                            indictor.x = p[0]+ox-indictor.width/2
+                            indictor.y = p[1]+oy-indictor.height/2
+                        }
+                        var ix = tp.x
+                        var iy = tp.y
+                        var cx = (ix-ox)*255/(r*0.9)
+                        var cy = (oy-iy)*255/(r*0.9)
+                        cx = cx>255? 255:cx
+                        cy = cy>255? 255:cy
+                        dc.v = cx
+                        dc.h = cy
+                    }
+                }
             }
-            else{
-                var nv = [v[0]/vl,v[1]/vl]
-                var p = [nv[0]*r,nv[1]*r]
-                indictor.x = p[0]+ox-indictor.width/2
-                indictor.y = p[1]+oy-indictor.height/2
-            }
-            var ix = indictor.x+indictor.width/2
-            var iy = indictor.y+indictor.height/2
-            var cx = (ix-ox)*100/r*1.41421356
-            var cy = (oy-iy)*100/r*1.41421356
-            cx = cx>100? 100:cx
-            cy = cy>100? 100:cy
-            dc.v = cx
-            dc.h = cy
-        }
-        onReleased: function(e){
-            indictor.x=(dc.width-indictor.width)/2
-            indictor.y=(dc.height-indictor.height)/2
-            dc.v = 0
-            dc.h = 0
-        }
+        ]
+
     }
+
+    // MouseArea{
+    //     id:mouse_area
+    //     anchors.fill: parent
+    //     containmentMask: ctr
+    //     property var p0: Qt.point(0,0)
+    //     onPositionChanged: function(e){
+    //         var ox = ctr.x+ctr.width/2
+    //         var oy = ctr.y+ctr.height/2
+    //         var r = pa.radiusX-indictor.width/2
+    //         var v = [e.x-ox,e.y-oy]
+    //         var vl = norm(v)
+    //         if(vl<=r){
+    //             indictor.x = e.x-indictor.width/2
+    //             indictor.y = e.y-indictor.height/2
+    //         }
+    //         else{
+    //             var nv = [v[0]/vl,v[1]/vl]
+    //             var p = [nv[0]*r,nv[1]*r]
+    //             indictor.x = p[0]+ox-indictor.width/2
+    //             indictor.y = p[1]+oy-indictor.height/2
+    //         }
+    //         var ix = indictor.x+indictor.width/2
+    //         var iy = indictor.y+indictor.height/2
+    //         var cx = (ix-ox)*100/r*1.41421356
+    //         var cy = (oy-iy)*100/r*1.41421356
+    //         cx = cx>100? 100:cx
+    //         cy = cy>100? 100:cy
+    //         dc.v = cx
+    //         dc.h = cy
+    //     }
+    //     onReleased: function(e){
+    //         indictor.x=(dc.width-indictor.width)/2
+    //         indictor.y=(dc.height-indictor.height)/2
+    //         dc.v = 0
+    //         dc.h = 0
+    //     }
+    // }
 
     function norm(n){
         return Math.sqrt(n[0]**2+n[1]**2)
