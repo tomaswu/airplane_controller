@@ -10,6 +10,7 @@ Item {
     antialiasing: true
 
     function controlDc(){
+        console.log(dcl.v,dcl.h,dcr.v,dcr.h)
         con.steering(dcl.v,dcl.h,dcr.v,dcr.h)
     }
 

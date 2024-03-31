@@ -52,11 +52,24 @@ void control::switchRadio(uchar idx,bool open)
 
 void control::steering(double lv, double lh, double rv, double rh)
 {
-    auto s = procotol::changePosition(lv,lh,rv,rh)+"\n";
+    qdb<<"test::"<<norm(lv)<<norm(lh)<<norm(rv)<<norm(rh);
     if(_method==0){
         if(_bt->socket->isOpen()){
-            debug(s);
-            _bt->socket->write(s.toLatin1());
+            QByteArray msg;
+            msg.resize(9);
+            msg[0]=0xaa;
+            msg[1]=0xbb;
+            msg[2]=0x00;
+            msg[3]=norm(lv);
+            msg[4]=norm(lh);
+            msg[5]=norm(rv);
+            msg[6]=norm(rh);
+            msg[7]=0xbb;
+            msg[8]=0xaa;
+            qdb<<msg.size();
+            _bt->socket->write(msg);
+            _bt->socket->write(msg);
+            _bt->socket->waitForBytesWritten(500);
         }
 
     }
@@ -64,6 +77,17 @@ void control::steering(double lv, double lh, double rv, double rh)
 
     }
 }
+
+uchar control::norm(double v, double threshold)
+{
+    double m = v/threshold*128+128;
+    if(m<0)m=0;
+    if(m>250)m=250;
+    uchar n = static_cast<uchar>(m);
+    return n;
+}
+
+
 
 
 

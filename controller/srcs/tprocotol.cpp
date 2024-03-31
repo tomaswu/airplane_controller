@@ -17,10 +17,10 @@ TProcotol::TProcotol() {
 
 QString TProcotol::dump()
 {
-    obj["sender"]=sender;
-    obj["recipient"]=recipient;
-    obj["type"]="cmd";
-    obj["stamp"]="0";
+    // obj["s"]=sender;
+    // obj["r"]=recipient;
+    // obj["type"]="cmd";
+    // obj["stamp"]="0";
 
     doc.setObject(obj);
     return QString(doc.toJson(QJsonDocument::JsonFormat::Compact));

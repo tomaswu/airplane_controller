@@ -27,6 +27,7 @@ private:
     TBluetooth *_bt;
     bool _isbusy{false};
     int _method{0};
+    uchar norm(double v,double threshold=255);
 
 };
 

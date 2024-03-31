@@ -89,8 +89,6 @@ Item {
                         var iy = tp.y
                         var cx = (ix-ox)*255/(r*0.9)
                         var cy = (oy-iy)*255/(r*0.9)
-                        cx = cx>255? 255:cx
-                        cy = cy>255? 255:cy
                         dc.v = cx
                         dc.h = cy
                     }

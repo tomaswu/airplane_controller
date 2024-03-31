@@ -13,8 +13,6 @@ TBluetooth::TBluetooth(QObject *parent,std::function<void(QString)> debug)
 
     this->debug=debug;
     connect(&discover ,&QBluetoothDeviceDiscoveryAgent::deviceDiscovered,this,&TBluetooth::findDevice);
-//    connect(&discover ,&QBluetoothDeviceDiscoveryAgent::finished,this,&TBluetooth::connectDevice);
-//    connect(&local,&QBluetoothLocalDevice::pairingFinished,this,&TBluetooth::test);
     socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
     connect(socket,&QBluetoothSocket::readyRead,this,&TBluetooth::read);
     connect(socket,&QBluetoothSocket::errorOccurred,this, &TBluetooth::error);
@@ -86,7 +84,7 @@ void TBluetooth::connectDevice(){
 void TBluetooth::read(){
     QByteArray all = socket->readAll();
     qdb<<"get recv::"<<QString::fromUtf8(all);
-    qdb<<all[*all.end()];
+    // qdb<<all[*all.end()];
     if(all[*all.end()]=='\n'){
         all.remove(all.length()-1,1);
         qdb<<all;
